@@ -1,0 +1,63 @@
+{
+    "log": {
+        "level": "info",
+        "timestamp": false
+    },
+    "inbounds": [
+        {
+            "type": "tun",
+            "tag": "tun-in",
+            "interface_name": "tun0",
+            "inet4_address": "26.26.26.1/30",
+            "mtu": 1500,
+            "auto_route": true,
+            "strict_route": true,
+            "stack": "system",
+            "sniff": true,
+            "sniff_override_destination": false,
+            "endpoint_independent_nat": false
+        }
+    ],
+    "outbounds": [
+        {
+            "type": "socks",
+            "tag": "socks-out",
+          
+            "server": "127.0.0.1",
+            "server_port": 10808
+        },
+        {
+            "type": "dns",
+            "tag": "dns-out"
+        }
+
+    ],
+    "dns": {
+        "servers": [
+            {
+                "tag": "dns_proxy",
+                "address": "8.8.8.8",
+                "strategy": "ipv4_only",
+                "detour": "socks-out"
+            }
+        ],
+        "rules": [
+            {
+                "outbound": "any",
+                "server": "dns-proxy"
+            }
+        ],
+        "final": "dns_proxy"
+    },
+    "route": {
+        "auto_detect_interface": true,
+        "rules": [
+            {
+                "port": [
+                    53
+                ],
+                "outbound": "dns-out"
+            }
+        ]
+    }
+}
