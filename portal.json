@@ -1,0 +1,64 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "reverse": {
+    "portals": [
+      {
+        "tag": "portal",
+        "domain": "www1.pinkbanana.ir"
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "tag": "external",
+      "port": 65511,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "9490743e-ee8e-42c7-8559-1148d18d17ca"
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp"
+      }
+    },
+    {
+      "tag": "interconn",
+      "port": 65510,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "9490743e-ee8e-42c7-8559-1148d18d17ca"
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp"
+      }
+    }
+  ],
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": [
+          "external"
+        ],
+        "outboundTag": "portal"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "interconn"
+        ],
+        "domain": [],
+        "outboundTag": "portal"
+      }
+    ]
+  }
+}

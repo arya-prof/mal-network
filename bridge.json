@@ -1,0 +1,61 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "reverse": {
+    "bridges": [
+      {
+        "tag": "bridge",
+        "domain": "www1.pinkbanana.ir"
+      }
+    ]
+  },
+  "outbounds": [
+    {
+      "tag": "interconn",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "176.9.97.10",
+            "port": 65510,
+            "users": [
+              {
+                "id": "9490743e-ee8e-42c7-8559-1148d18d17ca"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp"
+      }
+    },
+    {
+      "protocol": "freedom",
+      "settings": {},
+      "tag": "out"
+    }
+  ],
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": [
+          "bridge"
+        ],
+        "domain": [
+          "full:www1.pinkbanana.ir"
+        ],
+        "outboundTag": "interconn"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "bridge"
+        ],
+        "outboundTag": "out"
+      }
+    ]
+  }
+}
